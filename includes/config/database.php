@@ -7,7 +7,7 @@ function conectarDB() : mysqli{
     $passwd = 'root';   
     $dbname = 'bienes_raices';
     $port = 3310;
-    $db =  mysqli_connect($host, $username, $passwd, $dbname, $port);
+    $db =  new mysqli($host, $username, $passwd, $dbname, $port);
     $db -> set_charset('utf8'); 
 
     if ( !$db ) {

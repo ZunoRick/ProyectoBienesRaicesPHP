@@ -1,13 +1,8 @@
 <?php 
     require '../../includes/app.php';
     use App\Propiedad;
-    $propiedad = new Propiedad;
-    
-    $auth = estaAutenticado();
 
-    if (!$auth) {
-        header('Location: /');
-    }
+    estaAutenticado();
 
     //Base de datos
     $db = conectarDB();
@@ -27,6 +22,10 @@
     $vendedorId = '';
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+        $propiedad = new Propiedad($_POST);
+        $propiedad->guardar();
+
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
         $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
@@ -85,13 +84,7 @@
             //subir la imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
 
-            //Insertar en la base de datos
-            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
-                    VALUES('$titulo','$precio', '$nombreImagen', '$descripcion','$habitaciones','$wc','$estacionamiento', '$creado','$vendedorId')";
-            /*echo "<pre>";
-                var_dump($_POST);
-            echo "</pre>";
-            echo $query;*/
+            
             $resultado = mysqli_query($db, $query);
             //echo $resultado ? "Insertado Correctamente" : "Error al insertar en la BD";
             if ($resultado) {
@@ -147,7 +140,7 @@
             <fieldset>
                 <legend>Vendedor</legend>
 
-                <select name="vendedor" id="">
+                <select name="vendedorId" id="">
                     <option value="">-- Seleccione al Vendedor</option>
                     <?php while ($vendedor = mysqli_fetch_assoc($resultado)): ?>
                         <option <?php echo $vendedorId === $vendedor['id'] ? 'selected' : '';?> 
