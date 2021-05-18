@@ -71,7 +71,6 @@
 
         <form action="/admin/propiedades/crear.php" class="formulario" method="POST" enctype="multipart/form-data">
             <?php include '../../includes/templates/formulario_propiedades.php';?>
-
             <div class="alinear-derecha">
                 <input type="submit" value="Crear Propiedad" class="boton boton-verde">
             </div>
