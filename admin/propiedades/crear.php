@@ -12,7 +12,7 @@
     $resultado = mysqli_query($db, $consulta);
 
     //Arreglo con mensaje de errores 
-    $errores = [];
+    $errores = Propiedad::getErrores();
     $titulo = '';
     $precio = '';
     $descripcion = '';
@@ -24,51 +24,14 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $propiedad = new Propiedad($_POST);
-        $propiedad->guardar();
-
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
-        $precio = mysqli_real_escape_string($db, $_POST['precio'] );
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
-        $wc = mysqli_real_escape_string($db, $_POST['wc'] );
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] );
-        $vendedorId = mysqli_real_escape_string($db, $_POST['vendedor'] );
-        $creado = date('Y/m/d');
-
-        //Asignar files hacia una variable
-        $imagen = $_FILES['imagen'];
-
-        if(!$titulo)
-            $errores[] = "Debes añadir un titulo";
-
-        if (!$precio) 
-            $errores[] = "El precio es obligatorio";
-            
-        if ( strlen ( $descripcion ) < 50)
-            $errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
-
-        if (!$habitaciones) 
-            $errores[] = "El número de habitaciones es obligatorio";
-
-        if (!$wc) 
-            $errores[] = "El número de baños es obligatorio";
-
-        if (!$estacionamiento)
-            $errores[] = "El número de lugares de estacionamiento es obligatorio";
-
-        if (!$vendedorId) 
-            $errores[] = "Elige un vendedor";
-
-        if (!$imagen['name'] || $imagen['error'])
-            $errores[] = "La imagen es obligatoria";
-
-        //Validar por tamaño (100Kb máximo)
-        $medida = 1024 * 1000;
-        if ($imagen['size'] > $medida) 
-            $errores[] = "La imagen es muy pesada";
-
+        $errores = $propiedad->validar();
+        
         //Revisar que el arreglo de errores esté vacío
         if (empty($errores)) {
+            $propiedad->guardar();
+    
+            //Asignar files hacia una variable
+            $imagen = $_FILES['imagen'];
             /** Subida de archivos **/
 
             //Crear una carpeta
@@ -83,9 +46,7 @@
 
             //subir la imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-
             
-            $resultado = mysqli_query($db, $query);
             //echo $resultado ? "Insertado Correctamente" : "Error al insertar en la BD";
             if ($resultado) {
                 header('Location: /admin?resultado=1');
