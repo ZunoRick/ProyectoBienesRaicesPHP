@@ -1,32 +1,32 @@
 <fieldset>
-                <legend>Información General</legend>
+    <legend>Información General</legend>
 
-                <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Titulo Propiedad" value="<?php echo sane( $propiedad->titulo ); ?>" >
+    <label for="titulo">Titulo:</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Titulo Propiedad" value="<?php echo sane( $propiedad->titulo ); ?>" >
 
-                <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php echo sane( $propiedad->precio ); ?>">
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php echo sane( $propiedad->precio ); ?>">
 
-                <label for="imagen">Imagen:</label>
-                <input type="file" id="imagen" accept="image/jpeg image/png" name="imagen">
+    <label for="imagen">Imagen:</label>
+    <input type="file" id="imagen" accept="image/jpeg image/png" name="imagen">
 
-                <label for="descripcion">Descripción:</label>
-                <textarea name="descripcion" id="descripcion" cols="30" rows="10"><?php echo sane($propiedad->descripcion);?></textarea>
-            </fieldset>
+    <label for="descripcion">Descripción:</label>
+    <textarea name="descripcion" id="descripcion" cols="30" rows="10"><?php echo sane($propiedad->descripcion);?></textarea>
+</fieldset>
 
-            <fieldset>
-                <legend>Información de la Propiedad</legend>
+<fieldset>
+    <legend>Información de la Propiedad</legend>
 
-                <label for="habitaciones">Habitaciones:</label>
-                <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->habitaciones); ?>">
+    <label for="habitaciones">Habitaciones:</label>
+    <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->habitaciones); ?>">
 
-                <label for="wc">Baños:</label>
-                <input type="number" id="wc" name="wc" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->wc); ?>">
+    <label for="wc">Baños:</label>
+    <input type="number" id="wc" name="wc" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->wc); ?>">
 
-                <label for="estacionamiento">Estacionamiento:</label>
-                <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->estacionamiento); ?>">
-            </fieldset>
+    <label for="estacionamiento">Estacionamiento:</label>
+    <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej: 3" min="1" max="9" value="<?php echo sane($propiedad->estacionamiento); ?>">
+</fieldset>
 
-            <fieldset>
-                <legend>Vendedor</legend>
-            </fieldset>
+<fieldset>
+    <legend>Vendedor</legend>
+</fieldset>
