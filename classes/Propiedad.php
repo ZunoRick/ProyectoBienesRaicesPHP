@@ -40,12 +40,12 @@ class Propiedad{
     }
 
     public function guardar(){
-        if (isset($this->id)) {
+        if (!is_null($this->id)) {
             //Actualizar
             $this->actualizar();
         } else{
             //Creando un nuevo registro
-            return $this->crear();
+            $this->crear();
         }
     }
 
@@ -60,7 +60,10 @@ class Propiedad{
         $query .= join("', '", array_values($atributos));  //La función array values está retornando un string con los valores del arreglo separados por una comillas, coma y un espacio
         $query .= " ') ";
         $resultado = self::$db->query($query);
-        return $resultado;
+        //Mensaje de éxito o error
+        if ($resultado) {
+            header('Location: /admin?resultado=1');
+        }
     }
 
     public function actualizar(){
@@ -114,7 +117,7 @@ class Propiedad{
     //Subida de archivos
     public function setImagen($imagen){
         //Elimina la imagen previa
-        if (isset($this->id))
+        if (!is_null($this->id))
             $this->eliminarImagen();
 
         //Asignar al atributo el nombre de la imagen

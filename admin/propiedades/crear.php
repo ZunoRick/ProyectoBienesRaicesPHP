@@ -45,12 +45,10 @@
             }
 
             //Guarda en la base de datos
-            //Mensaje de éxito o error
-            if ($propiedad->guardar()) {
-                //Guarda la imagen en el servidor
-                $image->save(CARPETA_IMAGENES . $nombreImagen);
-                header('Location: /admin?resultado=1');
-            }
+            $propiedad->guardar();
+            
+            //Guarda la imagen en el servidor
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
         }   
     }
 
