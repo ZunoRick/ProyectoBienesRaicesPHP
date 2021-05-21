@@ -1,7 +1,10 @@
 <?php 
     
     //Incluye el header
-    require 'includes/app.php';
+
+use App\Propiedad;
+
+require 'includes/app.php';
     $db = conectarDB();
 
     $errores = [];
@@ -48,10 +51,6 @@
                 $errores[] = "El usuario no existe";
             }
         }
-        
-        /*echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";*/
     }
 
     incluirTemplate ('header'); 
