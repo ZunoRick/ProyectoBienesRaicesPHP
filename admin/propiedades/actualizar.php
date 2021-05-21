@@ -28,19 +28,18 @@ require '../../includes/app.php';
         $propiedad->sincronizar($args);
 
         $errores = $propiedad->validar();
-
-        //Generar un nombre único
-        $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
-
-        /*Setear la imagen*/
-        //Realiza un resize a la imagen con intervention
-        if ($_FILES['propiedad']['tmp_name']['imagen']) {
-            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
-            $propiedad->setImagen($nombreImagen);
-        }
-
+        
         //Revisar que el arreglo de errores esté vacío
         if (empty($errores)) {
+            //Generar un nombre único
+            $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
+    
+            /*Setear la imagen*/
+            //Realiza un resize a la imagen con intervention
+            if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+                $propiedad->setImagen($nombreImagen);
+            }
             //Guarda la imagen en el servidor
             $image->save(CARPETA_IMAGENES . $nombreImagen);
 
