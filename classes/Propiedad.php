@@ -27,7 +27,7 @@ class Propiedad{
 
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -45,7 +45,7 @@ class Propiedad{
             $this->actualizar();
         } else{
             //Creando un nuevo registro
-            $this->crear();
+            return $this->crear();
         }
     }
 
@@ -116,7 +116,7 @@ class Propiedad{
         //Elimina la imagen previa
         if (isset($this->id))
             $this->eliminarImagen();
-            
+
         //Asignar al atributo el nombre de la imagen
         if ($imagen)
             $this->imagen = $imagen;
