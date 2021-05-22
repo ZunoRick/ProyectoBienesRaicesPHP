@@ -1,6 +1,7 @@
 <?php
 
 use App\Propiedad;
+use App\Vendedor;
 use Intervention\Image\ImageManagerStatic as Image;
 
 require '../../includes/app.php';
@@ -14,10 +15,9 @@ require '../../includes/app.php';
         header('Location: /admin');
     //Obtener los datos de la propiedad
     $propiedad = Propiedad::find($id);
-    
-    //Consultar para obtener los vendedores
-    $consulta = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db, $consulta);
+
+    //Consulta para obtener todos los vendedores
+    $vendedores = Vendedor::all();
 
     //Arreglo con mensaje de errores 
     $errores = Propiedad::getErrores();
@@ -31,17 +31,21 @@ require '../../includes/app.php';
         
         //Revisar que el arreglo de errores esté vacío
         if (empty($errores)) {
-            //Generar un nombre único
-            $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
-    
-            /*Setear la imagen*/
-            //Realiza un resize a la imagen con intervention
+            
             if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                
+                //Generar un nombre único
+                $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
+
+                //Realiza un resize a la imagen con intervention
                 $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+
+                /*Setear la imagen*/
                 $propiedad->setImagen($nombreImagen);
+
+                //Guarda la imagen en el servidor
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
             }
-            //Guarda la imagen en el servidor
-            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
             $propiedad->guardar();
         }   
