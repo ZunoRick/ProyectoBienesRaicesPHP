@@ -26,3 +26,9 @@ function sane($html) : string{
     $s = htmlspecialchars($html);
     return $s;
 }
+
+//Validar Tipo de contenido
+function validarTipoContenido($tipo){
+    $tipos = ['vendedor', 'propiedad'];
+    return in_array($tipo, $tipos);
+}
