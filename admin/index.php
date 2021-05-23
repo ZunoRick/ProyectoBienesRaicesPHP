@@ -14,7 +14,6 @@
     $resultado = $_GET['resultado'] ?? null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
@@ -40,13 +39,13 @@
     
     <main class="contenedor seccion">
         <h1>Administrados de Bienes Raices</h1>
-        <?php if ( intval( $resultado ) === 1): ?>
-            <p class="alerta exito">Creado correctamente</p>
-        <?php elseif ( intval( $resultado ) === 2 ): ?>
-            <p class="alerta exito"> <?php echo $_GET['tipo']." ".$_GET['id'];?> actualizado correctamente</p>
-        <?php elseif ( intval( $resultado ) === 3 ): ?>
-            <p class="alerta exito"> <?php echo $_GET['tipo']." ".$_GET['id'];?> eliminado correctamente</p>
-        <?php endif;?>
+        <?php 
+            $mensaje = mostrarNotificacion( intval($resultado) );
+            if ($mensaje && intval($resultado) === 1): ?>
+                <p class="alerta exito"><?php echo $_GET['tipo']." ".sane($mensaje)?></p>
+            <?php elseif ($mensaje): ?>
+                <p class="alerta exito"><?php echo $_GET['tipo']." ".$_GET['id']." ".sane($mensaje)?></p>
+        <?php endif; ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo(a) Vendedor</a>
