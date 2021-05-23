@@ -13,6 +13,7 @@ require '../../includes/app.php';
 
     if (!$id)
         header('Location: /admin');
+        
     //Obtener los datos de la propiedad
     $propiedad = Propiedad::find($id);
 
