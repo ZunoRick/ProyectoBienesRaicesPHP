@@ -8,6 +8,7 @@
     //Implementar un método para obtener todas las propiedades
     $propiedades = Propiedad::all();
     $vendedores = Vendedor::all();
+    $tipo = '';
 
     //Muestra Mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
@@ -40,11 +41,11 @@
     <main class="contenedor seccion">
         <h1>Administrados de Bienes Raices</h1>
         <?php if ( intval( $resultado ) === 1): ?>
-            <p class="alerta exito">Anuncio creado correctamente</p>
+            <p class="alerta exito">Creado correctamente</p>
         <?php elseif ( intval( $resultado ) === 2 ): ?>
-            <p class="alerta exito">Anuncio <?php echo $_GET['id'];?> actualizado correctamente</p>
+            <p class="alerta exito"> <?php echo $_GET['tipo']." ".$_GET['id'];?> actualizado correctamente</p>
         <?php elseif ( intval( $resultado ) === 3 ): ?>
-            <p class="alerta exito">Anuncio <?php echo $_GET['id'];?> eliminado correctamente</p>
+            <p class="alerta exito"> <?php echo $_GET['tipo']." ".$_GET['id'];?> eliminado correctamente</p>
         <?php endif;?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>

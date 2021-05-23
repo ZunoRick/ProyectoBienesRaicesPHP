@@ -58,7 +58,7 @@ class ActiveRecord{
 
         $resultado = self::$db->query($query);
         if ($resultado) {
-            header('Location: /admin?resultado=2&id='.$this->id);
+            header('Location: /admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
         }
     }
 
@@ -68,7 +68,7 @@ class ActiveRecord{
 
         if (self::$db->query($query)) {
             $this->eliminarImagen();
-            header('Location: /admin?resultado=3&id='.$this->id);
+            header('Location: /admin?resultado=3&id='.$this->id.'&tipo='.$this->tipo);
         }
     }
     

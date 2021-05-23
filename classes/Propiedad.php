@@ -15,6 +15,7 @@ class Propiedad extends ActiveRecord{
     public $estacionamiento;
     public $creado;
     public $vendedorId;
+    public $tipo = 'Anuncio';
 
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
