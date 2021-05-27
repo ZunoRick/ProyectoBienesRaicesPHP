@@ -126,6 +126,12 @@ class ActiveRecord{
         return self::consultarSQL($query);
     }
 
+    //Obtiene determinado número de registros
+    public static function get($limit){
+        $query = "SELECT * FROM ". static::$tabla ." LIMIT " . $limit; //Static hereda este método y busca en la clase em la cual se está llamando
+        return self::consultarSQL($query);
+    }
+
     //Busca el registro por su ID
     public static function find($id){
         $query = " SELECT * FROM ". static::$tabla ." WHERE id = ${id}";

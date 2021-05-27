@@ -2,6 +2,7 @@
     require '../includes/app.php';
     estaAutenticado();
 
+    //Importar clases
     use App\Propiedad;
     use App\Vendedor;
 
@@ -12,15 +13,16 @@
 
     //Muestra Mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
+    $urlId = $_GET['id'] ?? null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
+        //Validar ID
         if ($id) {
             $tipo = $_POST['tipo'];
             if(validarTipoContenido($tipo)){
-
                 //Compara lo que vamos a eliminar
                 if ($tipo === 'propiedad') {
                     $propiedad = Propiedad::find($id);
@@ -44,7 +46,7 @@
             if ($mensaje && intval($resultado) === 1): ?>
                 <p class="alerta exito"><?php echo $_GET['tipo']." ".sane($mensaje)?></p>
             <?php elseif ($mensaje): ?>
-                <p class="alerta exito"><?php echo $_GET['tipo']." ".$_GET['id']." ".sane($mensaje)?></p>
+                <p class="alerta exito"><?php echo $_GET['tipo']." ".$urlId." ".sane($mensaje)?></p>
         <?php endif; ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
